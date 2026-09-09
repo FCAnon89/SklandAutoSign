@@ -13,7 +13,9 @@ internal static class Program
             return;
         }
 
-        if (args.Any(x => string.Equals(x, "--run", StringComparison.OrdinalIgnoreCase)))
+        if (args.Any(x =>
+                string.Equals(x, "--run", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(x, "--maaend", StringComparison.OrdinalIgnoreCase)))
         {
             await HeadlessRunner.RunAsync();
             return;
@@ -70,7 +72,7 @@ internal static class HeadlessRunner
             AppSettings settings = SettingsStore.Load();
             if (string.IsNullOrWhiteSpace(settings.EncryptedToken))
             {
-                LogWriter.Write("定时签到跳过：尚未保存账号 Token。");
+                LogWriter.Write("静默签到跳过：尚未保存账号 Token。");
                 return;
             }
 
@@ -83,7 +85,7 @@ internal static class HeadlessRunner
         }
         catch (Exception ex)
         {
-            LogWriter.Write($"定时签到失败：{ex.Message}");
+            LogWriter.Write($"静默签到失败：{ex.Message}");
         }
     }
 }

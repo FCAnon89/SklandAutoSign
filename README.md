@@ -10,7 +10,7 @@
 > [!WARNING]
 > 本项目是非官方工具，与鹰角网络、森空岛及相关游戏的运营方没有隶属或授权关系。第三方接口可能随时变化，自动化操作也可能受到服务条款或风控策略限制。使用者应自行判断并承担风险。
 
-当前修正版：`v1.0.1`。版本变更见 [`CHANGELOG.md`](./CHANGELOG.md)。
+当前版本：`v1.1.0`。版本变更见 [`CHANGELOG.md`](./CHANGELOG.md)。
 
 ## 功能
 
@@ -22,6 +22,7 @@
 - 将账号 Token 通过 Windows DPAPI 按当前用户加密保存
 - 记录签到时间、结果和奖励信息，但不记录 Token
 - 将“今日已经签到”视为成功结果，避免重复操作被误报为故障
+- 可作为非官方外部程序，在每次运行 MaaEnd 任务时先执行签到
 
 ## 运行环境
 
@@ -36,12 +37,20 @@ Release 中的单文件版本为自包含构建，不要求另外安装 .NET Run
 
 ## 下载与安装
 
-1. 从 GitHub Releases 下载 `SklandAutoSign.exe`。
+1. 从 GitHub Releases 下载 `SklandAutoSign.exe`。需要 MaaEnd 联动说明和完整文件的用户也可以下载 `SklandAutoSign-MaaEnd-Integration-win-x64.zip`。
 2. 将 EXE 放在稳定且有写入权限的目录，例如 `D:\Tools\SklandAutoSign`。
 3. 不要直接从压缩包、浏览器临时目录或会被自动清理的目录运行。
 4. 双击启动程序。
 
 本项目未使用商业代码签名证书。Windows SmartScreen 可能在首次运行时显示未知发布者提示；如有疑虑，请检查源码并自行构建。
+
+## MaaEnd 联动（非官方）
+
+本项目可以通过 MaaEnd 客户端自带的“自定义程序”任务运行，不需要修改 MaaEnd、MaaFramework、Pipeline 或资源文件。MaaEnd 会在用户点击“开始任务”时直接运行一次签到，不创建、查询或触发 Windows 计划任务。现有 `SklandAutoSign.exe` 和 Windows 每日任务功能保持不变，联动包只是额外提供同一 EXE、许可证和专用安装说明。
+
+推荐配置为：程序路径选择 `SklandAutoSign.exe`，附加参数填写 `--maaend`，开启“等待退出”和“已运行时跳过”，关闭“通过 cmd 启动”，再把自定义程序任务放到 MaaEnd 任务列表最前面。
+
+完整的安装、验证、更新、卸载和隐私说明见 [`MAAEND.md`](./MAAEND.md)。SklandAutoSign 与 MaaEnd 及其维护者无隶属、合作或担保关系，本项目不会作为 MaaEnd 功能提交给 MaaEnd 仓库。
 
 ## 获取并保存 Token
 
@@ -142,6 +151,7 @@ powershell -ExecutionPolicy Bypass -File .\build_release.ps1
 脚本会在 `dist` 目录生成：
 
 - `SklandAutoSign.exe`
+- `SklandAutoSign-MaaEnd-Integration-win-x64.zip`
 - `SHA256SUMS.txt`
 
 如果本机没有 .NET 8 SDK，也可以使用仓库自带的 GitHub Actions 工作流 `.github/workflows/build-release.yml`。提交到 `main` 后会自动构建 Windows x64 发布包，并在对应 Actions run 的 Artifacts 中提供下载。
@@ -149,8 +159,8 @@ powershell -ExecutionPolicy Bypass -File .\build_release.ps1
 发布时请按以下顺序操作：
 
 1. 先把本次版本的源码修改提交到 `main`。
-2. 确认仓库首页已经显示本次修改后，再从该最新提交创建版本 Tag，例如本次修正版 `v1.0.1`。
-3. 上传同一次构建生成的 `SklandAutoSign.exe` 和 `SHA256SUMS.txt`。
+2. 确认仓库首页已经显示本次修改后，再从该最新提交创建版本 Tag，例如本次版本 `v1.1.0`。
+3. 上传同一次构建生成的 `SklandAutoSign.exe`、`SklandAutoSign-MaaEnd-Integration-win-x64.zip` 和 `SHA256SUMS.txt`。
 4. 不要把 `data` 目录、`settings.json`、日志或任何真实 Token 打包进 Release。
 5. 发布前至少完成一次《明日方舟》、终末地、多角色、重复签到和 Windows 定时任务测试。
 
@@ -189,3 +199,7 @@ git grep -n -i -E "token|password|secret|credential"
 - 删除角色昵称、UID、Token 等信息后的相关日志
 
 严禁在公开 Issue 中粘贴 Token、`settings.json`、手机号、密码、验证码或其他账号凭证。
+
+## 许可证
+
+本项目作者有权许可的代码和文档采用宽松的 [MIT License](./LICENSE)。第三方项目、资料、名称和其他内容仍分别受其原有许可证及版权条款约束，详见 [`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。

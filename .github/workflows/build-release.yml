@@ -31,5 +31,6 @@ jobs:
           name: SklandAutoSign-win-x64
           path: |
             dist/SklandAutoSign.exe
+            dist/SklandAutoSign-MaaEnd-Integration-win-x64.zip
             dist/SHA256SUMS.txt
           if-no-files-found: error
