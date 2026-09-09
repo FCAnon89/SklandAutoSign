@@ -46,7 +46,7 @@ Release 中的单文件版本为自包含构建，不要求另外安装 .NET Run
 
 ## 导入 MaaEnd
 
-本项目可以通过 MaaEnd 客户端自带的“自定义程序”任务运行，不需要修改 MaaEnd、MaaFramework、Pipeline 或资源文件。MaaEnd 会在用户点击“开始任务”时直接运行一次签到，不创建、查询或触发 Windows 计划任务。现有 `SklandAutoSign.exe` 和 Windows 每日任务功能保持不变，联动包只是额外提供同一 EXE、许可证和专用安装说明。
+本项目可以通过 MaaEnd 客户端自带的“自定义程序”任务运行。MaaEnd 会在用户点击“开始任务”时直接运行一次签到。现有 `SklandAutoSign.exe` 和 Windows 每日任务功能保持不变，联动包只是额外提供同一 EXE、许可证和专用安装说明。
 
 推荐配置为：程序路径选择 `SklandAutoSign.exe`，附加参数填写 `--maaend`，开启“等待退出”和“已运行时跳过”，关闭“通过 cmd 启动”，再把自定义程序任务放到 MaaEnd 任务列表最前面。
 
