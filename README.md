@@ -44,7 +44,7 @@ Release 中的单文件版本为自包含构建，不要求另外安装 .NET Run
 
 本项目未使用商业代码签名证书。Windows SmartScreen 可能在首次运行时显示未知发布者提示；如有疑虑，请检查源码并自行构建。
 
-## MaaEnd 联动（非官方）
+## 导入 MaaEnd
 
 本项目可以通过 MaaEnd 客户端自带的“自定义程序”任务运行，不需要修改 MaaEnd、MaaFramework、Pipeline 或资源文件。MaaEnd 会在用户点击“开始任务”时直接运行一次签到，不创建、查询或触发 Windows 计划任务。现有 `SklandAutoSign.exe` 和 Windows 每日任务功能保持不变，联动包只是额外提供同一 EXE、许可证和专用安装说明。
 
